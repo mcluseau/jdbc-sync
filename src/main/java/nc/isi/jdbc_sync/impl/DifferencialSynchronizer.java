@@ -2,7 +2,8 @@ package nc.isi.jdbc_sync.impl;
 
 import static nc.isi.jdbc_sync.utils.Translators.translate;
 
-import java.io.Serializable;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,8 +27,10 @@ import nc.isi.jdbc_sync.model.Synchronization;
 import nc.isi.jdbc_sync.utils.ConcatIterable;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang.SerializationUtils;
 import org.apache.log4j.Logger;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
 
 public class DifferencialSynchronizer implements Synchronizer {
 
@@ -334,6 +337,7 @@ public class DifferencialSynchronizer implements Synchronizer {
 	}
 
 	private class ColumnHasher {
+		private JsonFactory jsonFactory = new JsonFactory();
 
 		private ResultSet rs;
 		private List<Integer> colIndices = new ArrayList<Integer>();
@@ -354,8 +358,20 @@ public class DifferencialSynchronizer implements Synchronizer {
 		}
 
 		public String currentHash() throws SQLException {
-			return DigestUtils.shaHex(SerializationUtils
-					.serialize((Serializable) readValues()));
+			StringWriter out = new StringWriter();
+			try {
+				JsonGenerator g = jsonFactory.createGenerator(out);
+				g.writeStartArray();
+				for (Object value : readValues()) {
+					// normalizing to string to avoid inter-db inconsistencies
+					g.writeObject(String.valueOf(value));
+				}
+				g.writeEndArray();
+				g.close();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+			return DigestUtils.shaHex(out.toString());
 		}
 
 		private List<Object> readValues() throws SQLException {
