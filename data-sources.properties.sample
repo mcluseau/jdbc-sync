@@ -1,0 +1,13 @@
+# Sample configuration of data sources for SyncTable
+
+#source.jndiName = jdbc/something
+source.driver   = com.ibm.as400.access.AS400JDBCDriver
+source.url      = jdbc:as400:my_source_db;prompt=false;date format=iso
+source.username = my_user
+source.password = my_pass
+
+#target.jndiName = jdbc/something-else
+target.driver   = org.postgresql.Driver
+target.url      = jdbc:postgresql:my_target_db
+target.username = my_user
+target.password = my_pass
