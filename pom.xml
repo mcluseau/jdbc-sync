@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nc.isi</groupId>
 	<artifactId>jdbc-sync</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.3</version>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.cayenne</groupId>
