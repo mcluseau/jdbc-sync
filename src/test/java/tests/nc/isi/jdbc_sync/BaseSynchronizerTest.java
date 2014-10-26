@@ -48,14 +48,20 @@ public class BaseSynchronizerTest {
 	protected DataSource dataSource() {
 		if (dataSource == null) {
 			// FIXME: make it configurable
-			dataSource = connect("jdbc:postgresql:test_db", "postgres", "x");
-
+			dataSource = connect("jdbc:h2:~/test", "sa", "");
 		}
 		return dataSource;
 	}
+        
+        protected void createTables() throws SQLException{
+            String sql1 = "CREATE TABLE IF NOT EXISTS source_table (id integer, label varchar(55))";
+            sql(sql1);
+            sql("CREATE TABLE IF NOT EXISTS target_table as select * from source_table where 1=0");
+        }
 
 	protected void performStandardTest(Synchronizer synchronizer)
 			throws SQLException, InterruptedException {
+                        createTables();
 		String sourceTable = syncDesc.getSourceTable();
 		String targetTable = syncDesc.getTargetTable();
 
