@@ -23,19 +23,6 @@ import org.apache.cayenne.map.DbEntity;
 import org.apache.commons.dbcp.BasicDataSource;
 
 /**
- * You will need the following tables:
- * 
- * <pre>
- * CREATE TABLE source_table (
- *     id integer,
- *     label character varying(55)
- * );
- * 
- * CREATE TABLE target_table (
- *     id integer,
- *     label character varying(55)
- * );
- * </pre>
  * 
  * @author Mikaël Cluseau
  *
@@ -48,7 +35,6 @@ public class BaseSynchronizerTest {
 
 	protected DataSource dataSource() {
 		if (dataSource == null) {
-			// FIXME: make it configurable
 			dataSource = connect(
 					"jdbc:h2:mem:jdbc-sync-test;DB_CLOSE_DELAY=-1", "sa", "");
 		}
@@ -56,9 +42,13 @@ public class BaseSynchronizerTest {
 	}
 
 	protected void createTables() throws SQLException {
-		String sql1 = "CREATE TABLE IF NOT EXISTS source_table (id integer, label varchar(55))";
-		sql(sql1);
-		sql("CREATE TABLE IF NOT EXISTS target_table as select * from source_table where 1=0");
+		createTable("source_table");
+		createTable("target_table");
+	}
+
+	private void createTable(String name) throws SQLException {
+		sql("CREATE TABLE IF NOT EXISTS " + name
+				+ " (id integer, label varchar(55))");
 	}
 
 	protected void performStandardTest(Synchronizer synchronizer)
@@ -191,10 +181,6 @@ public class BaseSynchronizerTest {
 	protected DataMap dataMap() {
 		if (dataMap == null) {
 			DbEntity targetTable = new DbEntity("target_table");
-			// Column | Type
-			// -------+-----------------------
-			// id | integer
-			// label | character varying(55)
 			targetTable.addAttribute(attr("id", Types.INTEGER));
 			targetTable.addAttribute(attr("label", Types.VARCHAR, 55));
 			((DbAttribute) targetTable.getAttribute("id")).setPrimaryKey(true);
