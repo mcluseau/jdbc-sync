@@ -1,0 +1,56 @@
+
+<project name="jdbc-sync" xmlns="http://maven.apache.org/DECORATION/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+   <!--
+   <bannerLeft>
+    <name>CUPS4J</name>
+    <src>img/cups4j-logo.jpg</src>
+    <href>http://cups4j.org/</href>
+  </bannerLeft>
+-->
+  <bannerRight>
+    <src></src>
+    <name>jdbc-sync</name>
+        <href>https://github.com/MikaelCluseau/jdbc-sync</href>
+        <title>jdbc-sync</title>
+  </bannerRight>
+  
+  
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.3.1</version>
+    </skin>
+    <custom>
+        <fluidoSkin>
+            <sideBarEnabled>true</sideBarEnabled>
+            <googlePlusOne />
+        </fluidoSkin>
+    </custom>
+
+
+    <body>
+        
+        <!--
+        <breadcrumbs>
+            <item name="cups4j" href="http://cups4j.org/"/>
+            <item name="forum" href="http://cups4j.org/forum/"/>
+            <item name="CUPS" href="http://www.cups.org"/>
+        </breadcrumbs>
+    -->
+    
+        <links>
+            <item name="Apache Cayenne" href="http://cayenne.apache.org/"/>
+        </links>
+
+        <!--
+        <menu name="MAIN MENU">
+            <item name="" href=""/>
+            
+        </menu>
+	-->
+        
+        <menu ref="reports"/>
+    </body>
+</project>
