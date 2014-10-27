@@ -47,7 +47,7 @@ public class BaseSynchronizerTest {
 
 	protected DataSource dataSource() {
 		if (dataSource == null) {
-			// FIXME: make it configurable
+			// TODO: make it configurable
 			dataSource = connect("jdbc:h2:mem:jdbc-sync-test;DB_CLOSE_DELAY=-1", "sa", "");
 		}
 		return dataSource;

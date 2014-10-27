@@ -4,6 +4,51 @@
     <groupId>nc.isi</groupId>
     <artifactId>jdbc-sync</artifactId>
     <version>0.0.4-SNAPSHOT</version>
+    <description>The purpose of this library is to sync two table contents,
+        based on rows haschodes instead of bulk reloading all table contents.</description>
+    <url>https://github.com/MikaelCluseau/jdbc-sync</url>
+    <name>jdbc-sync</name>
+    
+    <properties>
+    </properties>
+    <contributors>
+        <contributor>
+            <email>Adrien.Sales@gmail.com</email>
+            <name>Sales</name>
+            <organization>github</organization>
+            <organizationUrl>https://github.com/</organizationUrl>
+            <roles>
+                <role>Developer</role>
+                <role>Tester</role>
+            </roles>
+            <timezone>+11</timezone>
+        </contributor>
+    </contributors>
+    
+    <developers>
+        <developer>
+            <email>mcluseau@isi.nc</email>
+            <id>MikaelCluseau</id>
+            <name>Mikael Cluseau</name>
+            <organization>isi.nc</organization>
+            <organizationUrl>http://isi.nc/</organizationUrl>
+            <roles>
+                <role>Main developer</role>
+            </roles>
+            <timezone>+11</timezone>
+            <url></url>
+        </developer>
+    </developers>
+    
+    <licenses>
+        <license>
+            <comments>GPL</comments>
+            <distribution></distribution>
+            <name></name>
+            <url>http://www.gnu.org/copyleft/gpl.html</url>
+        </license>
+    </licenses>
+     
     <dependencies>
         <dependency>
             <groupId>org.apache.cayenne</groupId>
@@ -62,6 +107,100 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.4</version>
+                <configuration>
+                    <reportPlugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>2.10.1</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-jxr-plugin</artifactId>
+                            <version>2.4</version>
+                            <configuration>
+                                <aggregate>true</aggregate>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-report-plugin</artifactId>
+                            <version>2.17</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>cobertura-maven-plugin</artifactId>
+                            <version>2.6</version>
+                            <configuration>
+                                <formats>
+                                    <format>xml</format>
+                                    <format>html</format>
+                                </formats>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-checkstyle-plugin</artifactId>
+                            <version>2.13</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.7</version>
+                            <configuration>
+                                <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>taglist-maven-plugin</artifactId>
+                            <version>2.4</version>
+                            <configuration>
+                                <tagListOptions>
+                                    <tagClasses>
+                                        <tagClass>
+                                            <displayName>Todo Work</displayName>
+                                            <tags>
+                                                <tag>
+                                                    <matchString>todo</matchString>
+                                                    <matchType>ignoreCase</matchType>
+                                                </tag>
+                                                <tag>
+                                                    <matchString>FIXME</matchString>
+                                                    <matchType>exact</matchType>
+                                                </tag>
+                                            </tags>
+                                        </tagClass>
+                                    </tagClasses>
+                                </tagListOptions>
+                            </configuration>
+                        </plugin>
+                        
+                        <!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>findbugs-maven-plugin</artifactId> <version>2.5.2</version> </plugin> -->
+
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>findbugs-maven-plugin</artifactId>
+                            <version>3.0.0</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-pmd-plugin</artifactId>
+                            <version>3.2</version>
+                        </plugin>
+
+                    </reportPlugins>
+                </configuration>
+            </plugin>
         </plugins>
+        
     </build>
+    
+    
+    
 </project>
