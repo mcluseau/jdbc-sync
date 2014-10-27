@@ -24,16 +24,17 @@ import org.apache.commons.dbcp.BasicDataSource;
 
 /**
  * You will need the following tables:
+ * 
  * <pre>
-CREATE TABLE source_table (
-    id integer,
-    label character varying(55)
-);
-
-CREATE TABLE target_table (
-    id integer,
-    label character varying(55)
-);
+ * CREATE TABLE source_table (
+ *     id integer,
+ *     label character varying(55)
+ * );
+ * 
+ * CREATE TABLE target_table (
+ *     id integer,
+ *     label character varying(55)
+ * );
  * </pre>
  * 
  * @author Mikaël Cluseau
@@ -48,20 +49,21 @@ public class BaseSynchronizerTest {
 	protected DataSource dataSource() {
 		if (dataSource == null) {
 			// FIXME: make it configurable
-			dataSource = connect("jdbc:h2:~/jdbc-sync-test", "sa", "");
+			dataSource = connect(
+					"jdbc:h2:mem:jdbc-sync-test;DB_CLOSE_DELAY=-1", "sa", "");
 		}
 		return dataSource;
 	}
-        
-        protected void createTables() throws SQLException{
-            String sql1 = "CREATE TABLE IF NOT EXISTS source_table (id integer, label varchar(55))";
-            sql(sql1);
-            sql("CREATE TABLE IF NOT EXISTS target_table as select * from source_table where 1=0");
-        }
+
+	protected void createTables() throws SQLException {
+		String sql1 = "CREATE TABLE IF NOT EXISTS source_table (id integer, label varchar(55))";
+		sql(sql1);
+		sql("CREATE TABLE IF NOT EXISTS target_table as select * from source_table where 1=0");
+	}
 
 	protected void performStandardTest(Synchronizer synchronizer)
 			throws SQLException, InterruptedException {
-                        createTables();
+		createTables();
 		String sourceTable = syncDesc.getSourceTable();
 		String targetTable = syncDesc.getTargetTable();
 
